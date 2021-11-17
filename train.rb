@@ -47,6 +47,7 @@ class Train
   def move_train_up
     #Перемещение между станциями вперед.
     if @route.stations.size - 1 != @station_index
+    	@route.stations[@station_index].send_train(self)
       @station_index += 1
       @route.stations[@station_index].take_train(self)
     end
@@ -55,6 +56,7 @@ class Train
   def move_train_down
     #Перемещение между станциями назад.
     if @station_index!=0
+    	@route.stations[@station_index].send_train(self)
       @station_index -= 1
       @route.stations[@station_index].take_train(self)
     end
@@ -70,7 +72,7 @@ class Train
     if @station_index != 0
     @route.stations[@station_index - 1]
     else
-      current_station
+      nil
     end
   end
 
@@ -79,7 +81,7 @@ class Train
     if @station_index != @route.stations.size - 1
       @route.stations[@station_index + 1]
     else
-      current_station
+      nil
     end
   end
 
