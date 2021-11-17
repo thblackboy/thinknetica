@@ -15,10 +15,11 @@ class Route
 
   def del_station(station)
     #Удалить промежуточную станцию из списка
-    unless station == stations.first && station == stations.last
-      stations.delete(station)
-      #Убираем nil обьекты из массива stations
-      stations.compact!
+    if @stations.include?(station)
+      unless station == @stations.first && station == @stations.last
+        stations.delete(station)
+      end
     end
   end
+  
 end

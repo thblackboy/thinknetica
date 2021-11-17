@@ -20,8 +20,7 @@ class Station
 
   def trains_by_type(type)
     #Вывод массива поездов по типу (freight - грузовой, passenger - пассажирский)
-    arr_trains=trains.map { |train| train if train.type == type  }
-    arr_trains.compact!
+    @trains.select { |train| train.type == type }
   end
 
   def trains_by_type_count(type)
