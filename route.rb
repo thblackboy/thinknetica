@@ -1,26 +1,24 @@
 class Route
-	#Вывод всех станций по порядку, с помощью obj.stations
-	attr_reader :stations, :end_station, :start_station
-  def initialize(start_station,end_station)
-  	#Начальная и конечная станция при инизиализации
-  	@start_station=start_station
-  	@end_station=end_station
-  	@stations=[start_station,end_station]
+  #Вывод всех станций по порядку, с помощью obj.stations
+  attr_reader :stations
+  def initialize(start_station, end_station)
+    #Начальная и конечная станция при инизиализации
+    @stations = [start_station, end_station]
   end
 
   def add_station(station)
-  	#Добавить промежуточную станцию в список
-  	unless stations.include?(station)
-  		stations.last=station
-  		stations<<end_station
-  	end
+    #Добавить промежуточную станцию в список
+    unless stations.include?(station)
+      stations.insert(-2, station)
+    end
   end
 
   def del_station(station)
-  	#Удалить промежуточную станцию из списка
-  	unless station==start_station && station==end_station
-  		stations.delete(station)
-  		stations.compact!
-  	end
+    #Удалить промежуточную станцию из списка
+    unless station == stations.first && station == stations.last
+      stations.delete(station)
+      #Убираем nil обьекты из массива stations
+      stations.compact!
+    end
   end
 end
