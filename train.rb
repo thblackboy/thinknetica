@@ -2,7 +2,7 @@ class Train
   #Вывод количества вагонов obj.wagon_count
   attr_reader :wagon_count, :type
   attr_accessor :speed
-  
+
   def initialize(number, type , wagon_count)
     #Номер, тип (freight - грузовой, passenger - пассажирский, кол-во вагонов)
     @number = number
@@ -69,20 +69,12 @@ class Train
 
   def prev_station
     #Возврат предыдущей станции
-    if @station_index != 0
-    @route.stations[@station_index - 1]
-    else
-      nil
-    end
+    @route.stations[@station_index - 1] if @station_index != 0
   end
 
   def next_station
     #Возврат следующей станции
-    if @station_index != @route.stations.size - 1
-      @route.stations[@station_index + 1]
-    else
-      nil
-    end
+    @route.stations[@station_index + 1] if @station_index != @route.stations.size - 1
   end
 
 end
