@@ -9,7 +9,7 @@ class Station
 
   def take_train(train)
     #Прием поездов
-    train.stop  	
+    train.stop
     @trains << train
   end
 
@@ -19,13 +19,17 @@ class Station
   end
 
   def trains_by_type(type)
-    #Вывод массива поездов по типу (freight - грузовой, passenger - пассажирский)
-    @trains.select { |train| train.type == type }
+    #Вывод массива поездов по типу (CargoTrain - грузовой, PassengerTrain - пассажирский)
+    @trains.select { |train| train.class == type }
   end
 
   def trains_by_type_count(type)
-    #Вывод кол-ва поездов по типу (freight - грузовой, passenger - пассажирский)
+    #Вывод кол-ва поездов по типу (CargoTrain - грузовой, CargoTrain - пассажирский)
     trains_by_type(type).size
+  end
+
+  def to_s
+    "#{@name}"
   end
 
 end
