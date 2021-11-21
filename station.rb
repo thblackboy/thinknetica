@@ -19,12 +19,12 @@ class Station
   end
 
   def trains_by_type(type)
-    #Вывод массива поездов по типу (CargoTrain - грузовой, PassengerTrain - пассажирский)
-    @trains.select { |train| train.class == type }
+    #Вывод массива поездов по типу (cargo - грузовой, passenger - пассажирский)
+    @trains.select { |train| train.type == type }
   end
 
   def trains_by_type_count(type)
-    #Вывод кол-ва поездов по типу (CargoTrain - грузовой, CargoTrain - пассажирский)
+    #Вывод кол-ва поездов по типу (cargo - грузовой, train - пассажирский)
     trains_by_type(type).size
   end
 

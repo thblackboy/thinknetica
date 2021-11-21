@@ -1,11 +1,13 @@
 class Train
   #Вывод вагонов obj.wagons
-  attr_reader :speed, :wagons, :route
+  attr_reader :speed, :wagons, :route, :type
 
-  def initialize(number)
+  def initialize(number, type)
+    #type cargo,passenger
     @number = number
     @wagons = []
     @speed = 0
+    @type = type
   end
 
   def go
@@ -16,6 +18,10 @@ class Train
   def stop
     #сбрасывает до нуля
     @speed = 0
+  end
+
+  def add_wagon(wagon)
+    @wagons << wagon if wagon.type == @type
   end
 
   def del_wagon(wagon)
@@ -68,7 +74,7 @@ class Train
   end
 
   def to_s
-    "Номер поезда: #{@number} тип: #{self.class} маршрут: #{@route}"
+    "Номер поезда: #{@number} тип: #{@type} маршрут: #{@route}"
   end
 
   protected
