@@ -1,37 +1,33 @@
 class Train
-  #Вывод количества вагонов obj.wagon_count
-  attr_reader :wagon_count, :type
-  attr_accessor :speed
+  #Вывод вагонов obj.wagons
+  attr_reader :speed, :wagons, :route, :type
 
-  def initialize(number, type , wagon_count)
-    #Номер, тип (freight - грузовой, passenger - пассажирский, кол-во вагонов)
+  def initialize(number, type)
+    #type cargo,passenger
     @number = number
-    @type = type
-    @wagon_count = wagon_count
+    @wagons = []
     @speed = 0
+    @type = type
   end
 
   def go
     #набирает скорость
-    self.speed = 100
+    @speed = init_speed
   end
 
   def stop
     #сбрасывает до нуля
-    self.speed = 0
+    @speed = 0
   end
 
-  def add_wagon
-    #добавление вагода при полной остановке
-    if speed == 0
-      @wagon_count += 1
-    end
+  def add_wagon(wagon)
+    @wagons << wagon if wagon.type == @type
   end
 
-  def del_wagon
+  def del_wagon(wagon)
     #удаление вагода при полной остановке
-    if speed == 0
-      @wagon_count -= 1
+    if @speed.zero?
+      @wagons.delete(wagon) if @wagons.include?(wagon)
     end
   end
 
@@ -75,6 +71,16 @@ class Train
   def next_station
     #Возврат следующей станции
     @route.stations[@station_index + 1] if @station_index != @route.stations.size - 1
+  end
+
+  def to_s
+    "Номер поезда: #{@number} тип: #{@type} маршрут: #{@route}"
+  end
+
+  protected
+  #Закрыл доступ к скорости поезда при движении
+  def init_speed
+    100
   end
 
 end

@@ -21,5 +21,8 @@ class Route
       end
     end
   end
-  
+
+  def to_s
+    "Начальная станция: #{stations.first} Конечная станция: #{stations.last}"
+  end
 end
