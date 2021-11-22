@@ -1,6 +1,12 @@
 class Train
+  include Company
+  include InstanceCounter
   #Вывод вагонов obj.wagons
   attr_reader :speed, :wagons, :route, :type
+  @@trains = {}
+  def self.find(number)
+    @@trains[number]
+  end
 
   def initialize(number, type)
     #type cargo,passenger
@@ -8,6 +14,8 @@ class Train
     @wagons = []
     @speed = 0
     @type = type
+    @@trains[number] = self
+    register_instance
   end
 
   def go

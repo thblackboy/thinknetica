@@ -1,4 +1,5 @@
 class Route
+  include InstanceCounter
   #Вывод всех станций по порядку, с помощью obj.stations
   attr_reader :stations
   def initialize(start_station, end_station)
