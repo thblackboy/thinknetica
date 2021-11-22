@@ -5,6 +5,7 @@ class Route
   def initialize(start_station, end_station)
     #Начальная и конечная станция при инизиализации
     @stations = [start_station, end_station]
+    register_instance
   end
 
   def add_station(station)

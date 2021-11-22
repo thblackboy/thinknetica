@@ -5,18 +5,13 @@ module InstanceCounter
   end
 
   module ClassMethods
-    @@instances = 0
-    def instances
-      @@instances
-    end
-    def addinstance
-      @@instances +=1
-    end
+    attr_accessor :instances
   end
   module InstanceMethods
     protected
     def register_instance
-      self.class.addinstance
+      self.class.instances ||= 0
+      self.class.instances += 1
     end
   end
 end
