@@ -6,12 +6,24 @@ class Station
   def self.all
     @@stations
   end
+
+  NAME_FORMAT = /^[А-Я]{1}.+$/
+
+
   def initialize(name)
     #Добавление названия при инициализации
     @name = name
     @trains = []
+    validate!
     @@stations << self
     register_instance
+  end
+
+  def valid?
+    validate!
+    true
+  rescue
+    false
   end
 
   def take_train(train)
@@ -31,12 +43,18 @@ class Station
   end
 
   def trains_by_type_count(type)
-    #Вывод кол-ва поездов по типу (cargo - грузовой, train - пассажирский)
+    #Вывод кол-ва поездов по типу (cargo - грузовой, passenger - пассажирский)
     trains_by_type(type).size
   end
 
   def to_s
     "#{@name}"
+  end
+
+  protected
+  def validate!
+    raise "Название не соответвует формату" if @name !~ NAME_FORMAT
+    raise "Длина названия должна быть более 5 символов" if @name.length < 5
   end
 
 end
