@@ -1,10 +1,17 @@
 class Station
+  include InstanceCounter
   #Вывод названия станции и всех поездов на станции через obj.name и obj.trains
   attr_reader :trains, :name
+  @@stations = []
+  def self.all
+    @@stations
+  end
   def initialize(name)
     #Добавление названия при инициализации
     @name = name
     @trains = []
+    @@stations << self
+    register_instance
   end
 
   def take_train(train)
