@@ -1,9 +1,10 @@
-class Train
+ class Train
   include Company
   include InstanceCounter
   #Вывод вагонов obj.wagons
   attr_reader :speed, :wagons, :route, :type
   @@trains = {}
+  NUMBER_FORMAT = /^([a-z]|\d){3}(-|)([a-z]|\d){2}$/i
   def self.find(number)
     @@trains[number]
   end
@@ -14,8 +15,16 @@ class Train
     @wagons = []
     @speed = 0
     @type = type
+    validate!
     @@trains[number] = self
     register_instance
+  end
+
+  def valid?
+    validate!
+    true
+  rescue
+    false
   end
 
   def go
@@ -89,6 +98,12 @@ class Train
   #Закрыл доступ к скорости поезда при движении
   def init_speed
     100
+  end
+
+  def validate!
+    raise "Неверный формат номера" if @number !~ NUMBER_FORMAT
+    raise "Неверный тип поезда" if @type != "cargo" && @type != "passenger"
+    raise "Вы ввели не все аргументы" if @number.nil? || @type.nil?
   end
 
 end

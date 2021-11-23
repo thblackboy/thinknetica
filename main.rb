@@ -43,6 +43,8 @@ class RailRoad
     print "Введите название станции: "
     name = gets.chomp
     @stations << Station.new(name)
+  rescue RuntimeError => e
+    puts "Ошибка: #{e.message}"
   end
 
   def station_list(stations)
@@ -88,18 +90,12 @@ class RailRoad
   def create_route!
     station_list(@stations)
     print "Введите индекс начальной станции: "
-    start_station_index = gets.chomp.to_i
-    start_station = @stations[start_station_index]
-    unless start_station.nil?
-      print "Введите индекс конечной станции: "
-      end_station_index = gets.chomp.to_i
-      end_station = @stations[end_station_index]
-      unless end_station.nil? && end_station == start_station
-        @routes << Route.new(start_station, end_station)
-      else
-        nil
-      end
-    end
+    start_station = @stations[gets.chomp.to_i]
+    print "Введите индекс конечной станции: "
+    end_station = @stations[gets.chomp.to_i]
+    @routes << Route.new(start_station, end_station)
+  rescue RuntimeError => e
+    puts "Ошибка #{e.message}"
   end
 
   def create_train
@@ -117,6 +113,9 @@ class RailRoad
     else
       puts "Несуществующий вариант ответа"
     end
+  rescue RuntimeError => e
+    puts "Ошибка: #{e.message}"
+    retry
   end
 
 
