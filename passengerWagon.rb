@@ -7,6 +7,10 @@ class PassengerWagon < Wagon
     validate!
   end
 
+  def total_places
+    @free_places + @taked_places
+  end
+
   def take_place
     raise "Все места уже заняты" if free_places <= 0
     @taked_places += 1

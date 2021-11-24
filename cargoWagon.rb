@@ -7,6 +7,10 @@ class CargoWagon < Wagon
     validate!
   end
 
+  def total_volume
+    @free_volume + @used_volume
+  end
+
   def take_volume (volume)
     raise "Недостаточно места в вагоне" if volume > @free_volume
     @free_volume -= volume
