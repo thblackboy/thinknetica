@@ -371,4 +371,5 @@ class RailRoad
       nil
     end
   end
+
 end
