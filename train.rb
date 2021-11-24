@@ -27,6 +27,12 @@
     false
   end
 
+  def wagon_block_func(&block)
+    @wagons.each do |wagon|
+      yield(wagon)
+    end
+  end
+
   def go
     #набирает скорость
     @speed = init_speed

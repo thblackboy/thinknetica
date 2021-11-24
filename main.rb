@@ -104,8 +104,8 @@ class RailRoad
     puts "Выберите тип поезда:"
     puts "1 - Грузовой"
     puts "2 - Пассажирский"
-    type = gets.chomp.to_i
-    case type
+    print "Ваш выбор: "
+    case gets.chomp.to_i
     when 1
       @trains << CargoTrain.new(number)
     when 2
@@ -126,9 +126,11 @@ class RailRoad
     print "Ваш выбор: "
     case gets.chomp.to_i
     when 1
-      @wagons << CargoWagon.new
+      print "Введите объем вагона: "
+      @wagons << CargoWagon.new(gets.chomp.to_i)
     when 2
-      @wagons << PassengerWagon.new
+      print "Введите количество мест в вагоне: "
+      @wagons << PassengerWagon.new(gets.chomp.to_i)
     else
       puts "Несуществующий вариант ответа"
     end
@@ -297,12 +299,17 @@ class RailRoad
   end
 
   def show_trains_on_station
-    @stations.each do |station|
-      puts "Станция: #{station}"
-      puts station.trains
-      puts ""
-    end
+    show_stations
+    print "Введите индекс интересующей вас станции: "
+    @stations[gets.chomp.to_i].train_block_func {|station| puts station}
   end
+
+  def show_trains_wagon
+    train_list
+    print "Введите индекс интересующего вас поезда: "
+    @trains[gets.chomp.to_i].wagon_block_func {|wagon| puts wagon}
+  end
+
 
 
 
@@ -335,13 +342,16 @@ class RailRoad
 
   def show_datas
     puts "1 - Список станций"
-    puts "2 - Список станций и поездов на них"
+    puts "2 - Список и поездов на станций"
+    puts "3 - Список вагонов у поезда"
     print "Ваш выбор: "
     case gets.chomp.to_i
     when 1
       show_stations
     when 2
       show_trains_on_station
+    when 3
+      show_trains_wagon
     else
       nil
     end
