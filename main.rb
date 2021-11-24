@@ -310,7 +310,19 @@ class RailRoad
     @trains[gets.chomp.to_i].wagon_block_func {|wagon| puts wagon}
   end
 
-
+  def take_wagons_place_or_volume
+    wagon_list(@wagons)
+    print "Введите индекс вагона: "
+    index = gets.chomp.to_i
+    unless @wagons[index].nil?
+      if @wagons[index].type == "cargo"
+        print "Введите сколько занять объема: "
+        @wagons[index].take_volume(gets.chomp.to_i)
+      else
+        @wagons[index].take_place
+      end
+    end
+  end
 
 
 
@@ -321,6 +333,7 @@ class RailRoad
     puts "4 - Добавление вагона к поезду"
     puts "5 - Отцепление вагона от поезда"
     puts "6 - Перемещение поезда по маршруту назад и вперед"
+    puts "7 - Занять место, объем в вагоне"
     print "Ваш выбор:"
     case gets.chomp.to_i
     when 1
@@ -335,6 +348,8 @@ class RailRoad
       del_wagon_to_train
     when 6
       move_train
+    when 7
+      take_wagons_place_or_volume
     else
       nil
     end
