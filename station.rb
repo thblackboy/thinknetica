@@ -26,6 +26,12 @@ class Station
     false
   end
 
+  def train_block_func(&block)
+    @trains.each do |train|
+      yield(train)
+    end
+  end
+
   def take_train(train)
     #Прием поездов
     train.stop
