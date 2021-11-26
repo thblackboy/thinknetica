@@ -1,20 +1,17 @@
 class Wagon
   include Company
+  include Validation
+  extend Accessors
   attr_reader :type
+  validate :type, :presence
   def initialize(type)
     @type=type
 
   end
-  def valid?
-    validate!
-    true
-  rescue
-    false
-  end
 
   protected
   def validate!
-    raise "Вы не ввели тип вагона" if @type.nil?
+    super
     raise "Неверный тип вагона" if @type != "cargo" && @type != "passenger"
   end
 end

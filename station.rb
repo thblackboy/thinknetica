@@ -1,13 +1,16 @@
 class Station
   include InstanceCounter
+  include Validation
   #Вывод названия станции и всех поездов на станции через obj.name и obj.trains
+
   attr_reader :trains, :name
+  validate :name, :presence
+  validate :name, :format, /^[А-Я]{1}.+$/
   @@stations = []
+
   def self.all
     @@stations
   end
-
-  NAME_FORMAT = /^[А-Я]{1}.+$/
 
 
   def initialize(name)
@@ -19,12 +22,6 @@ class Station
     register_instance
   end
 
-  def valid?
-    validate!
-    true
-  rescue
-    false
-  end
 
   def train_block_func(&block)
     @trains.each do |train|
@@ -57,10 +54,5 @@ class Station
     "#{@name}"
   end
 
-  protected
-  def validate!
-    raise "Название не соответвует формату" if @name !~ NAME_FORMAT
-    raise "Длина названия должна быть более 5 символов" if @name.length < 5
-  end
 
 end

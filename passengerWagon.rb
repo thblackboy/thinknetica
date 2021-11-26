@@ -1,5 +1,7 @@
 class PassengerWagon < Wagon
   attr_reader :free_places, :taked_places
+  validate :free_places, :presence
+  validate :free_places, :type, Fixnum
   def initialize(place_count)
     super("passenger")
     @free_places = place_count

@@ -1,5 +1,6 @@
 class Route
   include InstanceCounter
+  include Validation
   #Вывод всех станций по порядку, с помощью obj.stations
   attr_reader :stations
   def initialize(start_station, end_station)
@@ -7,12 +8,6 @@ class Route
     @stations = [start_station, end_station]
     validate!
     register_instance
-  end
-  def valid?
-    validate!
-    true
-  rescue
-    false
   end
 
   def add_station(station)

@@ -1,10 +1,18 @@
+ require_relative 'route.rb'
  class Train
+  extend Accessors
   include Company
   include InstanceCounter
+  include Validation
   #Вывод вагонов obj.wagons
+
   attr_reader :speed, :wagons, :route, :type
+  validate :number, :presence
+  validate :type, :presence
+  validate :number, :format, /^([a-z]|\d){3}(-|)([a-z]|\d){2}$/i
+
   @@trains = {}
-  NUMBER_FORMAT = /^([a-z]|\d){3}(-|)([a-z]|\d){2}$/i
+
   def self.find(number)
     @@trains[number]
   end
@@ -20,12 +28,6 @@
     register_instance
   end
 
-  def valid?
-    validate!
-    true
-  rescue
-    false
-  end
 
   def wagon_block_func(&block)
     @wagons.each do |wagon|
@@ -101,15 +103,15 @@
   end
 
   protected
+  strong_attr_accessor :route => Route, :type => String
   #Закрыл доступ к скорости поезда при движении
   def init_speed
     100
   end
 
   def validate!
-    raise "Неверный формат номера" if @number !~ NUMBER_FORMAT
+    super
     raise "Неверный тип поезда" if @type != "cargo" && @type != "passenger"
-    raise "Вы ввели не все аргументы" if @number.nil? || @type.nil?
   end
 
 end

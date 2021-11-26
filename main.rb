@@ -1,3 +1,5 @@
+require_relative 'accessors.rb'
+require_relative 'validation.rb'
 require_relative 'moduleCompany.rb'
 require_relative 'instanceCounter.rb'
 require_relative 'train.rb'
@@ -8,6 +10,7 @@ require_relative 'passengerTrain.rb'
 require_relative 'cargoTrain.rb'
 require_relative 'passengerWagon.rb'
 require_relative 'cargoWagon.rb'
+
 class RailRoad
 
   def initialize

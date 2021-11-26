@@ -1,5 +1,6 @@
 class CargoWagon < Wagon
-  attr_reader :free_volume, :used_volume
+  validate :free_volume, :type, Fixnum
+
   def initialize(volume)
     super("cargo")
     @free_volume = volume
@@ -25,6 +26,8 @@ class CargoWagon < Wagon
   end
 
   protected
+  strong_attr_accessor :free_volume => Fixnum, :used_volume => Fixnum
+
   def validate!
     super
     raise "Обьем должен быть больше нуля" if @free_volume <= 0
