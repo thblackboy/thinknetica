@@ -27,6 +27,8 @@ class PassengerWagon < Wagon
   protected
   def validate!
     super
+    validate :free_places, :presence
+    validate :free_places, :type, Fixnum
     raise "Количество мест не может быть меньше или равно нулю" if @free_places <= 0
   end
 
