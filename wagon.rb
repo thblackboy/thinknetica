@@ -10,7 +10,7 @@ class Wagon
 
   protected
   def validate!
-    validate :type, :presence
+    self.class.validate :type, :presence
     raise "Неверный тип вагона" if @type != "cargo" && @type != "passenger"
   end
 end

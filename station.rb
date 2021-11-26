@@ -54,8 +54,8 @@ class Station
 
   protected
   def validate!
-    validate :name, :presence
-    validate :name, :format, NAME_FORMAT
+    self.class.validate :name, :presence
+    self.class.validate :name, :format, NAME_FORMAT
   end
 
 end

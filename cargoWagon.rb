@@ -29,7 +29,7 @@ class CargoWagon < Wagon
 
   def validate!
     super
-    validate :free_volume, :type, Fixnum
+    self.class.validate :free_volume, :type, Fixnum
     raise "Обьем должен быть больше нуля" if @free_volume <= 0
   end
 

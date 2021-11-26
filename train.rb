@@ -106,9 +106,9 @@
   end
 
   def validate!
-    validate :number, :presence
-    validate :type, :presence
-    validate :number, :format, NUMBER_FORMAT
+    self.class.validate :number, :presence
+    self.class.validate :type, :presence
+    self.class.validate :number, :format, NUMBER_FORMAT
     raise "Неверный тип поезда" if @type != "cargo" && @type != "passenger"
   end
 
