@@ -5,10 +5,14 @@
   include InstanceCounter
   include Validation
   #Вывод вагонов obj.wagons
+
   attr_reader :speed, :wagons, :route, :type
+  validate :number, :presence
+  validate :type, :presence
+  validate :number, :format, /^([a-z]|\d){3}(-|)([a-z]|\d){2}$/i
 
   @@trains = {}
-  NUMBER_FORMAT = /^([a-z]|\d){3}(-|)([a-z]|\d){2}$/i
+
   def self.find(number)
     @@trains[number]
   end
@@ -106,9 +110,7 @@
   end
 
   def validate!
-    self.class.validate :number, :presence
-    self.class.validate :type, :presence
-    self.class.validate :number, :format, NUMBER_FORMAT
+    super
     raise "Неверный тип поезда" if @type != "cargo" && @type != "passenger"
   end
 

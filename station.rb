@@ -2,13 +2,15 @@ class Station
   include InstanceCounter
   include Validation
   #Вывод названия станции и всех поездов на станции через obj.name и obj.trains
+
   attr_reader :trains, :name
+  validate :name, :presence
+  validate :name, :format, /^[А-Я]{1}.+$/
   @@stations = []
+
   def self.all
     @@stations
   end
-
-  NAME_FORMAT = /^[А-Я]{1}.+$/
 
 
   def initialize(name)
@@ -52,10 +54,5 @@ class Station
     "#{@name}"
   end
 
-  protected
-  def validate!
-    self.class.validate :name, :presence
-    self.class.validate :name, :format, NAME_FORMAT
-  end
 
 end

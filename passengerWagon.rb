@@ -1,5 +1,7 @@
 class PassengerWagon < Wagon
   attr_reader :free_places, :taked_places
+  validate :free_places, :presence
+  validate :free_places, :type, Fixnum
   def initialize(place_count)
     super("passenger")
     @free_places = place_count
@@ -27,8 +29,6 @@ class PassengerWagon < Wagon
   protected
   def validate!
     super
-    self.class.validate :free_places, :presence
-    self.class.validate :free_places, :type, Fixnum
     raise "Количество мест не может быть меньше или равно нулю" if @free_places <= 0
   end
 

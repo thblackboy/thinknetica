@@ -1,4 +1,5 @@
 class CargoWagon < Wagon
+  validate :free_volume, :type, Fixnum
 
   def initialize(volume)
     super("cargo")
@@ -29,7 +30,6 @@ class CargoWagon < Wagon
 
   def validate!
     super
-    self.class.validate :free_volume, :type, Fixnum
     raise "Обьем должен быть больше нуля" if @free_volume <= 0
   end
 
